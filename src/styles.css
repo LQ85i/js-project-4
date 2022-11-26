@@ -34,23 +34,22 @@ body {
     filter: brightness(0) invert(1);
 }
 
-#icon-today {
-    background: url(./icons/clock.svg);
+.icon-today {
+    background: url(./icons/today.svg);
     background-size: 25px;
 }
-#icon-upcoming {
-    background: url(./icons/forward.svg);
+.icon-upcoming {
+    background: url(./icons/upcoming.svg);
     background-size: 25px;
 }
-#icon-highpriority {
+.icon-highpriority {
     background: url(./icons/high_priority.svg);
     background-size: 25px;
 }
-#icon-calendar {
+.icon-calendar {
     background: url(./icons/calendar.svg);
     background-size: 25px;
 }
-
 
 .header {
     grid-row: 1/2;
@@ -58,10 +57,61 @@ body {
     border: 1px solid white;
 }
 
-.tabcontent {
+.todoviewer {
     grid-row: 2/3;
     grid-column: 2/3;
     border: 1px solid white;
+    padding: 20px;
+}
+
+.todo-item {
+    display: grid;
+    grid-template-columns: 1fr 150px 70px 115px;
+    margin-bottom: 10px;
+    border: 2px solid rgb(63, 94, 63);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.todo-name {
+    font-size: 16px;
+    text-align: left;
+    align-self: center;
+}
+
+.todo-date {
+    font-size: 13px;
+    align-self: center;
+    text-align: left;
+}
+
+.todo-priority {
+    text-align: left;
+    align-self: center;
+}
+
+.todo-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+}
+
+.todo-icon {
+    width: 25px;
+    height: 25px;
+    filter: brightness(0) invert(1);
+    margin-left: 10px;
+}
+.icon-edit {
+    background: url(./icons/edit.svg);
+    background-size: 25px;
+}
+.icon-checkbox {
+    background: url(./icons/checkbox_yes.svg);
+    background-size: 25px;
+}
+.icon-delete {
+    background: url(./icons/delete.svg);
+    background-size: 25px;
 }
 
 li {
