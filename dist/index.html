@@ -9,45 +9,36 @@
 </head>
 <body>
     <div id="content">
-        <div class="header">
-            <div class="header-icon icon-menu"></div>
-            <div class="header-icon icon-home"></div>
+        <div id="header">
+            <button class="header-button icon-menu" id="sidebar-toggle"></button>
+            <button class="header-button icon-home"></button>
             <form class="search-bar">
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="Search..." class="search-box">
             </form>
-            <div class="header-icon icon-add"></div>
-            <div class="header-icon icon-notifications"></div>
-            <div class="header-icon icon-settings"></div>
-            <div class="header-icon icon-profile"></div>
+            <button class="header-button icon-addtask"></button>
+            <button class="header-button icon-notifications"></button>
+            <button class="header-button icon-settings"></button>
+            <button class="header-button icon-profile"></button>
         </div>
-        <div class="sidebar">
-            <li class="sidebar-item">
+        <div id="sidebar">
+            <div class="sidebar-item" id="sidebar-today">
                 <div class="sidebar-icon icon-today"></div>
                 <div class="sidebar-text">Today</div>
-            </li>
-            <li class="sidebar-item">
+            </div>
+            <div class="sidebar-item" id="sidebar-upcoming">
                 <div class="sidebar-icon icon-upcoming"></div>
-                <div class="sidebar-text">Upcoming</div></li>
-            <li class="sidebar-item">
+                <div class="sidebar-text">Upcoming</div>
+            </div>
+            <div class="sidebar-item" id="sidebar-highpriority">
                 <div class="sidebar-icon icon-highpriority"></div>
-                <div class="sidebar-text">High Priority</div></li>
-            <li class="sidebar-item">
+                <div class="sidebar-text">High Priority</div>
+            </div>
+            <div class="sidebar-item" id="sidebar-calendar">
                 <div class="sidebar-icon icon-calendar"></div>
-                <div class="sidebar-text">Calendar</div></li>
-        </div>
-        <div class="todoviewer">
-            <div class="todo-item">
-                <div class="todo-name">default todo</div>
-                <div class="todo-date">12.12.1212 12:12</div>
-                <div class="todo-priority">High</div>
-                <div class="todo-actions">
-                    <div class="todo-icon icon-edit"></div>
-                    <div class="todo-icon icon-checkbox"></div>
-                    <div class="todo-icon icon-delete"></div>
-                </div>
+                <div class="sidebar-text">Calendar</div>
             </div>
         </div>
-        
+        <div id="mainview"></div>
     </div>
     <script src="main.js"></script>
 </body>
