@@ -5,14 +5,14 @@ body {
 
 #content {
     display: grid;
-    grid-template-columns: 250px minmax(520px,1fr);
+    grid-template-columns: 250px minmax(580px,1fr);
     grid-template-rows: 50px minmax(100vh,1000px);
     color: white;
 }
 
 #content.hide-sidebar {
-    transition: 0.25s;
-    grid-template-columns: 0 minmax(520px,1fr);
+    transition: 0.15s;
+    grid-template-columns: 0 minmax(580px,1fr);
 }
 
 #sidebar {
@@ -30,17 +30,23 @@ body {
     left: -250px;
     width: 250px;
     height: 100vh;
-    transition: 0.25s;
+    transition: 0.15s;
 }
 
 .sidebar-item {
-    margin: 0 auto 30px 30px;
+    margin: 0 30px 15px 30px;
     display: flex;
-    font-size: 17px;
+    font-size: 16px;
 }
 
-.sidebar-item:hover {
+.sidebar-item:hover:not(.selected) {
     filter: brightness(0) drop-shadow(0 0 3px red) invert(1);
+}
+
+#sidebar .selected {
+    background-color: rgba(1, 65, 54, 0.151);
+    filter: drop-shadow(0 0 5px rgb(175, 175, 175));
+    border-radius: 10px;
 }
 
 .sidebar-text {
@@ -52,6 +58,53 @@ body {
     width: 25px;
     height: 25px;
     filter: brightness(0) invert(1);
+}
+
+.sidebar-category {
+    margin: 0 auto 20px 30px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+    color: rgba(235, 235, 235, 0.685);
+}
+
+.sidebar-project-item {
+    padding-left: 30px;
+}
+
+.sidebar-project {
+    margin: 0 30px 10px 30px;
+    display: flex;
+    font-size: 17px;
+}
+
+.icon-project{
+    background: url(./icons/line_horizontal.svg);
+    background-size: 25px;
+}
+
+
+.sidebar-project.selected .icon-project {
+    background: url(./icons/arrow_right.svg);
+    background-size: 25px;
+}
+
+
+.sidebar-tag {
+    margin: 0 30px 30px 30px;
+    display: flex;
+    font-size: 17px;
+}
+
+.sidebar-tag:hover {
+    filter: brightness(0) drop-shadow(0 0 3px red) invert(1);
+}
+
+.sidebar-separator {
+    background-color: rgba(194, 194, 194, 0.24);
+    height: 2px;
+    margin: 0 30px 15px 30px;
+    display: flex;
 }
 
 .icon-today {
@@ -66,16 +119,13 @@ body {
     background: url(./icons/high_priority.svg);
     background-size: 25px;
 }
-.icon-calendar {
-    background: url(./icons/calendar.svg);
-    background-size: 25px;
-}
+
 
 #header {
     grid-row: 1/2;
     grid-column: 1/3;
     display: grid;
-    grid-template-columns: 50px 50px 1fr 50px 50px 50px 50px;
+    grid-template-columns: 45px 1fr 45px;
     padding: 10px;
     background-color: rgb(0, 58, 36);
 }
@@ -94,92 +144,168 @@ body {
     filter: brightness(0) drop-shadow(0 0 3px red) invert(1);
 }
 
+.header-button.icon-menu {
+    align-self: center;
+    margin-left: 20px;
+}
+
+.header-title {
+    grid-column: 2/3;
+    margin-left: 20px;
+    align-self: center;
+}
+
+.header-button.icon-settings {
+    align-self: center;
+    grid-column: 3/4;
+}
+
 .icon-menu {
     background: url(./icons/menu.svg);
-    background-size: 25px;
-}
-.icon-home {
-    background: url(./icons/home.svg);
-    background-size: 25px;
-}
-.icon-addtask {
-    background: url(./icons/add.svg);
     background-size: 25px;
 }
 .icon-settings {
     background: url(./icons/settings.svg);
     background-size: 25px;
 }
-.icon-notifications {
-    background: url(./icons/notifications.svg);
-    background-size: 25px;
-}
-.icon-profile {
-    background: url(./icons/profile.svg);
-    background-size: 25px;
-}
-
-.search-bar input {
-    margin-top: -3px;
-    background: url(icons/search.svg) top left no-repeat;
-    background-size: 25px;
-    background-position: 5px;
-    filter: brightness(0) invert(1);
-    padding: 5px 0 5px 30px;
-    border: 2px solid rgba(1, 65, 46, 0.425);
-    border-radius: 10px;
-}
-
-.search-bar input:focus {
-    outline: none;
-    border: 2px solid white;
-}
-
-.search-box:hover {
-    filter: brightness(0) drop-shadow(0 0 3px red) invert(1);
-}
 
 #mainview {
     grid-row: 2/3;
     grid-column: 2/3;
-    
     padding: 20px;
     background-color: rgb(0, 80, 56);
+    display: grid;
+    grid-template-rows: 130px 1fr;
 }
 
-#mainview .labels {
+#mainview form {
+    grid-row: 2/3;
     display: grid;
-    grid-template-columns: 1fr 150px 90px 105px;
-    padding: 10px;
+    gap: 2px;
+    grid-template-columns: minmax(80px,1fr) 120px 100px 90px 90px;
+}
+
+form #desc {
+    grid-column: 1/6;
+}
+
+#add-todo-box {
+    display: grid;
+    grid-template-rows: 30px 30px;
+    grid-row: 1/2;
+}
+
+#add-todo-box .title {
+    grid-row: 1/2;
     font-style: italic;
+}
+
+select {
+    background-color: rgba(0, 61, 43, 0.637);
+    color: white;
+    border: 2px inset rgb(0, 177, 124);
+    border-radius: 5px;
+    height: 36px;
+}
+input {
+    background-color: rgba(0, 61, 43, 0.637);
+    color: white;
+    border: 2px inset rgb(0, 177, 124);
+    border-radius: 5px;
+    height: 30px;
+}
+
+input:hover, select:hover {
+    outline: 1px solid rgb(0, 255, 115);
+}
+
+input:focus, select:focus {
+    outline: 1px solid rgb(0, 255, 115);
+}
+
+#submit-todo {
+    height: 36px;
+}
+
+#submit-todo:active {
+    border: none;
+}
+
+
+
+
+#todoview {
+    grid-row: 2/3;
+    display: grid;
+    grid-template-rows: 25px 1fr;
+}
+
+#todoview .labels {
+    display: grid;
+    grid-template-columns: minmax(170px,1fr) 150px 90px 105px;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    grid-row: 1/2;
+}
+
+#todobox {
+    grid-row: 2/3;
+    height: 800px;
+    overflow: auto;
 }
 
 .todo-item {
     display: grid;
-    grid-template-columns: 1fr 150px 90px 105px;
+    grid-template-columns: minmax(170px,1fr) 150px 90px 105px;
     margin-bottom: 10px;
     border: 2px solid rgb(2, 160, 62);
     border-radius: 10px;
     padding: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.295);
     background-color: rgb(1, 65, 46);
+    user-select: none;
+}
+
+.todo-item * {
+    user-select: text;
+}
+
+.todo-description {
+    overflow: hidden;
+    visibility: visible;
+    height: 60px;
+    padding-top: 10px;
+    transition: 0.15s;
+    font-size: 12px;
+    grid-column: 1/5;
+}
+
+.todo-description.hidden {
+    visibility: hidden;
+    padding-top: 0;
+    height: 0px;
+    transition: 0.15s;
 }
 
 .todo-name {
     font-size: 16px;
     text-align: left;
     align-self: center;
+    margin-right: auto;
 }
 
 .todo-duedate {
     font-size: 13px;
     align-self: center;
     text-align: left;
+    margin-right: auto;
 }
 
 .todo-priority {
     text-align: left;
     align-self: center;
+    margin-right: auto;
 }
 
 .todo-actions {
@@ -211,3 +337,4 @@ body {
     background: url(./icons/delete.svg);
     background-size: 25px;
 }
+

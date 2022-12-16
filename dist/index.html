@@ -11,16 +11,10 @@
     <div id="content">
         <div id="header">
             <button class="header-button icon-menu" id="sidebar-toggle"></button>
-            <button class="header-button icon-home"></button>
-            <form class="search-bar">
-                <input type="text" placeholder="Search..." class="search-box">
-            </form>
-            <button class="header-button icon-addtask"></button>
-            <button class="header-button icon-notifications"></button>
-            <button class="header-button icon-settings"></button>
-            <button class="header-button icon-profile"></button>
+            <div class="header-title">ToDo Lists</div>
         </div>
         <div id="sidebar">
+            <div class="sidebar-category">All ToDos</div>
             <div class="sidebar-item" id="sidebar-today">
                 <div class="sidebar-icon icon-today"></div>
                 <div class="sidebar-text">Today</div>
@@ -33,12 +27,33 @@
                 <div class="sidebar-icon icon-highpriority"></div>
                 <div class="sidebar-text">High Priority</div>
             </div>
-            <div class="sidebar-item" id="sidebar-calendar">
-                <div class="sidebar-icon icon-calendar"></div>
-                <div class="sidebar-text">Calendar</div>
+            <div class="sidebar-separator"></div>
+            <div class="sidebar-category">Projects</div>
+            <div id="sidebar-projects">
             </div>
         </div>
-        <div id="mainview"></div>
+        <div id="mainview">
+            <div id="add-todo-box">
+                <div class="title">New todo:</div>
+                <form name="form-add-todo" id="form-add-todo">
+                    <input type="text" name="name" id="name" placeholder="Todo" required>
+                    <input type="date" name="date" id="add-todo-date" required>
+                    <select name="priority" id="priority" required>
+                        <option value="" disabled selected hidden>Priority...</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <select name="project" id="add-todo-project" required>
+                    </select>
+                    <input type="submit" value="+ Add Todo" id="submit-todo">
+                    <input type="text" name="desc" id="desc" placeholder="description (optional)">
+                </form>
+            </div>
+            <div id="todoview">
+
+            </div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

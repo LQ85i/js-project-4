@@ -1,58 +1,112 @@
 import './styles.css'
-import {createPageToday} from './pageToday';
-import {createPageUpcoming} from './pageUpcoming';
-import {createPageHighPriority} from './pageHighPriority';
-import {toggleSidebar} from './toggleSidebar';
+import { buildTodoview } from './todoview';
+import { toggleSidebar } from './toggles';
+import { todoFactory, projectFactory } from './factories';
+import { startOfToday, startOfTomorrow, format } from 'date-fns';
+import { initSidebar, currentTab } from './sidebar';
+import { formReader, updateTodoFormProjects } from './formFunctions';
 
-function importAll(r) {
-    return r.keys().map(r);
-}
 
-const images = importAll(require.context('./icons/', false, /\.(png|jpe?g|svg)$/));
-
-const todoFactory = (name, description, dueDate, priority) => {
-    return { name, description, dueDate, priority };
-};
-
-const projectFactory = (name, description, dueDate, priority) => {
-    const todos = [];
-    const addTodo = todo => todos.push(todo);
-    const getTodos = () => todos;
-
-    return { name, description, dueDate, priority, addTodo, getTodos };
-};
+const projects = defaultSetup();
 
 function defaultSetup() {
-    const project0 = projectFactory("project0","desc","due","prio");
-    const todo0 = todoFactory("todo0","desc","due","prio");
-    project0.addTodo(todo0);
+    const addTodoDate = document.getElementById("add-todo-date");
+    addTodoDate.setAttribute("min",format(startOfToday(),'yyyy-MM-dd'));
+    
+    let projects = [];
+
+    const project0 = projectFactory("project0");
+    const project1 = projectFactory("project1");
+
+    projects.push(project0);
+    projects.push(project1);
+
+    const todo0 = todoFactory(
+        "default todo",
+        "description here description here description here ",
+        startOfToday(),
+        "Low"
+    );
+    const todo1 = todoFactory(
+        "tomorrow todo",
+        "description here",
+        startOfTomorrow(),
+        "Medium"
+    );
+    const todo2 = todoFactory(
+        "tomorrow todo",
+        "description here",
+        startOfTomorrow(),
+        "Medium"
+    );
+    const todo3 = todoFactory(
+        "tomorrow todo",
+        "description here",
+        startOfTomorrow(),
+        "Medium"
+    );
+
+    projects[0].addTodo(todo0);
+    projects[0].addTodo(todo1);
+    projects[0].addTodo(todo2);
+    projects[0].addTodo(todo3);
+    projects[0].addTodo(structuredClone(todo0));
+    projects[1].addTodo(structuredClone(todo0));
+    projects[1].addTodo(structuredClone(todo0));
+    projects[1].addTodo(structuredClone(todo0));
+
+    initSidebar(projects);
+    updateTodoFormProjects(projects);
+    currentTab = document.getElementById("sidebar-today");
+    currentTab.classList.add("selected");
+    buildTodoview(projects, "Today");
+
+
+    return projects;
 }
 
 function addEventListeners() {    
     const sidebar_today = document.getElementById("sidebar-today");
     const sidebar_upcoming = document.getElementById("sidebar-upcoming");
     const sidebar_highpriority = document.getElementById("sidebar-highpriority");
+    
+    const sidebar_toggle = document.getElementById("sidebar-toggle");
 
-    const header_sidebar_toggle = document.getElementById("sidebar-toggle");
+    document.getElementById("form-add-todo").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        formReader(formData, projects);
+    })
 
-    header_sidebar_toggle.addEventListener("click",()=>{
+    sidebar_toggle.addEventListener("click",()=>{
         toggleSidebar();
     });
     
     sidebar_today.addEventListener("click",()=>{
-        const todos = ""; //to be changed
-        createPageToday(todos);
+        if(!sidebar_today.classList.contains("selected")){
+            currentTab.classList.remove("selected");
+            currentTab = sidebar_today;
+            sidebar_today.classList.add("selected");
+        }
+        buildTodoview(projects, "Today");
     });
     sidebar_upcoming.addEventListener("click",()=>{
-        const todos = ""; //to be changed
-        createPageUpcoming(todos);
+        if(!sidebar_upcoming.classList.contains("selected")){
+            currentTab.classList.remove("selected");
+            currentTab = sidebar_upcoming;
+            sidebar_upcoming.classList.add("selected");
+        }
+        buildTodoview(projects, "Upcoming");
     });
     sidebar_highpriority.addEventListener("click",()=>{
-        const todos = ""; //to be changed
-        createPageHighPriority(todos);
+        if(!sidebar_highpriority.classList.contains("selected")){
+            currentTab.classList.remove("selected");
+            currentTab = sidebar_highpriority;
+            sidebar_highpriority.classList.add("selected");
+        }
+        buildTodoview(projects, "HighPriority");
     });
 
 }
 
-defaultSetup();
 addEventListeners();
