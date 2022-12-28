@@ -29,24 +29,28 @@
             </div>
             <div class="sidebar-separator"></div>
             <div class="sidebar-category">Projects</div>
+            <form name="form-add-project" id="form-add-project">
+                <input type="text" name="name" id="name" placeholder="add project.." required>
+                <input type="submit" value="+" id="submit">
+            </form>
             <div id="sidebar-projects">
             </div>
         </div>
         <div id="mainview">
             <div id="add-todo-box">
-                <div class="title">New todo:</div>
+                <div class="title">New Todo:</div>
                 <form name="form-add-todo" id="form-add-todo">
                     <input type="text" name="name" id="name" placeholder="Todo" required>
-                    <input type="date" name="date" id="add-todo-date" required>
+                    <input type="date" name="date" id="date" required>
                     <select name="priority" id="priority" required>
                         <option value="" disabled selected hidden>Priority...</option>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
                     </select>
-                    <select name="project" id="add-todo-project" required>
+                    <select name="project" id="project" required>
                     </select>
-                    <input type="submit" value="+ Add Todo" id="submit-todo">
+                    <input type="submit" value="+ Add Todo" id="submit">
                     <input type="text" name="desc" id="desc" placeholder="description (optional)">
                 </form>
             </div>

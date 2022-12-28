@@ -1,6 +1,7 @@
 import { toggleTodoDescription } from "./toggles";
 import { format } from "date-fns";
-import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos } from "./factories";
+import { currentTab } from "./sidebar";
+import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos, todoRemover } from "./factories";
 
 const buildTodoview = (projects, filter) => {
 
@@ -66,6 +67,7 @@ const buildTodoview = (projects, filter) => {
         const tPriority = document.createElement('div');
         const tActions = document.createElement('div');
         const tDesc = document.createElement('div');
+        const tProject = document.createElement('div');
 
         tName.classList.add("todo-name");
         tDueDate.classList.add("todo-duedate");
@@ -73,25 +75,29 @@ const buildTodoview = (projects, filter) => {
         tActions.classList.add("todo-actions");
         tDesc.classList.add("todo-description");
         tDesc.classList.add("hidden");
+        tProject.classList.add("todo-project");
         
         tName.innerHTML = todo.name;
         tDueDate.innerHTML = format(todo.dueDate, 'dd.MM.yyyy');
         tPriority.innerHTML = todo.priority;
         tDesc.innerHTML = todo.description;
+        tProject.innerHTML = todo.projectName;
 
-        const tEdit = document.createElement('button');
         const tCheckbox = document.createElement('button');
         const tDelete = document.createElement('button');
 
-        tEdit.classList.add("todo-button");
         tCheckbox.classList.add("todo-button");
         tDelete.classList.add("todo-button");
 
-        tEdit.classList.add("icon-edit");
         tCheckbox.classList.add("icon-checkbox");
         tDelete.classList.add("icon-delete");
 
-        tActions.appendChild(tEdit);
+        tDelete.addEventListener("click",(e)=>{
+            
+            todoRemover(todo,projects);
+            updatePage(projects);
+        });
+
         tActions.appendChild(tCheckbox);
         tActions.appendChild(tDelete);
 
@@ -101,11 +107,32 @@ const buildTodoview = (projects, filter) => {
         todo_item.appendChild(tPriority);
         todo_item.appendChild(tActions);
         todo_item.appendChild(tDesc);
+        todo_item.appendChild(tProject);
 
         todobox.appendChild(todo_item);
     });
     todoview.appendChild(todobox);
 }
 
+const updatePage = (projects) => {
+    if(currentTab.id == "sidebar-today"){
+        buildTodoview(projects, "Today");
+    }
+    else if(currentTab.id == "sidebar-upcoming"){
+        buildTodoview(projects, "Upcoming");
+    }
+    else if(currentTab.id == "sidebar-highpriority"){
+        buildTodoview(projects, "HighPriority");
+    }
+    else if(currentTab.id.includes("sidebar-project-")){
+        for(let i = 0; i < projects.length; i++) {
+            if(projects[i].name == currentTab.querySelector(".sidebar-text").innerHTML){
+                buildTodoview([projects[i]], "Project");
+                break;
+            }
+        }
+    }
+}
 
-export { buildTodoview };
+
+export { buildTodoview, updatePage };

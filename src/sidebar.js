@@ -1,13 +1,14 @@
+import { updateTodoFormProjects } from "./formFunctions";
 import { buildTodoview } from "./todoview";
 
 let currentTab = document.createElement('div');
 
-const initSidebar = (projects) => {
+const buildSidebarProjects = (projects) => {
     // build projects, rest is there by default
-
+    const sidebar_projects = document.getElementById("sidebar-projects");
+    sidebar_projects.innerHTML = "";
     for(let i = 0; i < projects.length; i++) {
         const projectData = projects[i];
-        const parent = document.getElementById("sidebar-projects");
         const project = document.createElement('div');
         const icon = document.createElement('div');
         const text = document.createElement('div');
@@ -32,11 +33,16 @@ const initSidebar = (projects) => {
     
         project.appendChild(icon);
         project.appendChild(text);
-        parent.appendChild(project)
+        sidebar_projects.appendChild(project)
     }
     
     
     
 }
 
-export { initSidebar, currentTab };
+const updateSidebarProjects = (projects) => {
+    buildSidebarProjects(projects);
+    updateTodoFormProjects(projects);
+}
+
+export { buildSidebarProjects, updateSidebarProjects, currentTab };

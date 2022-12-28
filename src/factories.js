@@ -1,8 +1,8 @@
 import { startOfTomorrow, compareAsc, isToday } from 'date-fns';
 
 
-const todoFactory = (name, description, dueDate, priority) => {
-    return { name, description, dueDate, priority};
+const todoFactory = (name, description, dueDate, priority, projectName) => {
+    return { name, description, dueDate, priority, projectName};
 }
 
 const projectFactory = (name) => {
@@ -61,4 +61,12 @@ const getHighPriorityTodos = (projects) => {
     return highPriorityTodos;
 }
 
-export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos }
+const todoRemover = (todo, projects) => {
+    for(let i = 0; i < projects.length; i++) {
+        if(projects[i].name == todo.projectName){
+            projects[i].removeTodo(todo);
+        }
+    }
+}
+
+export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos, todoRemover }

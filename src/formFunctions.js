@@ -1,15 +1,16 @@
-import { todoFactory } from "./factories";
-import { currentTab } from "./sidebar";
-import { buildTodoview } from './todoview';
+import { projectFactory, todoFactory } from "./factories";
+import { updatePage } from './todoview';
+import { updateSidebarProjects } from "./sidebar";
 
 import parseISO from "date-fns/parseISO";
 
-const formReader = (formData, projects) => {
+const formReaderTodo = (formData, projects) => {
     const todo = todoFactory(
         formData.get("name"),
         formData.get("desc"),
         parseISO(formData.get("date")),
         formData.get("priority"),
+        formData.get("project"),
     );
     for(let i = 0; i < projects.length; i++) {
         if(projects[i].name == formData.get("project")){
@@ -17,27 +18,19 @@ const formReader = (formData, projects) => {
             break;
         }
     }
-    if(currentTab.id == "sidebar-today"){
-        buildTodoview(projects, "Today");
-    }
-    else if(currentTab.id == "sidebar-upcoming"){
-        buildTodoview(projects, "Upcoming");
-    }
-    else if(currentTab.id == "sidebar-highpriority"){
-        buildTodoview(projects, "HighPriority");
-    }
-    else if(currentTab.id.includes("sidebar-project-")){
-        for(let i = 0; i < projects.length; i++) {
-            if(projects[i].name == currentTab.querySelector(".sidebar-text").innerHTML){
-                buildTodoview([projects[i]], "Project");
-                break;
-            }
-        }
-    }
+    updatePage(projects);
+}
+
+const formReaderProject = (formData, projects) => {
+    const project = projectFactory(
+        formData.get("name")
+    );
+    projects.push(project);
+    updateSidebarProjects(projects)
 }
 
 const updateTodoFormProjects = (projects) => {
-    const project = document.getElementById("add-todo-project");
+    const project = document.querySelector("#form-add-todo #project");
     project.innerHTML = "";
 
     const defaultOption = document.createElement("option");
@@ -57,4 +50,4 @@ const updateTodoFormProjects = (projects) => {
 
 }
 
-export { formReader, updateTodoFormProjects }
+export { formReaderTodo, formReaderProject, updateTodoFormProjects }
