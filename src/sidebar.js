@@ -1,5 +1,6 @@
 import { updateTodoFormProjects } from "./formFunctions";
 import { buildTodoview } from "./todoview";
+import { projectRemover } from "./factories";
 
 let currentTab = document.createElement('div');
 
@@ -12,6 +13,7 @@ const buildSidebarProjects = (projects) => {
         const project = document.createElement('div');
         const icon = document.createElement('div');
         const text = document.createElement('div');
+        const removeButton = document.createElement('button');
     
         project.classList.add("sidebar-project");
         project.classList.add("sidebar-item");
@@ -19,21 +21,31 @@ const buildSidebarProjects = (projects) => {
         icon.classList.add("icon-project");
         icon.classList.add("sidebar-icon");
         text.classList.add("sidebar-text");
-    
+        removeButton.classList.add("sidebar-project-remove");
+        removeButton.classList.add("icon-delete");
+
         text.innerHTML = projectData.name;
     
-        project.addEventListener("click",()=>{
-            if(!project.classList.contains("selected")){
-                currentTab.classList.remove("selected");
-                currentTab = project;
-                project.classList.add("selected");
-                buildTodoview([projectData], "Project");
+        project.addEventListener("click",(e)=>{
+            if(!e.target.classList.contains("sidebar-project-remove")) {
+                if(!project.classList.contains("selected")){
+                    currentTab.classList.remove("selected");
+                    currentTab = project;
+                    project.classList.add("selected");
+                    buildTodoview([projectData], "Project");
+                }
             }
         });
-    
+
+        removeButton.addEventListener("click",()=>{
+            projectRemover(project, projects);
+            updateSidebarProjects(projects);
+        });
+
         project.appendChild(icon);
         project.appendChild(text);
-        sidebar_projects.appendChild(project)
+        project.appendChild(removeButton);
+        sidebar_projects.appendChild(project);
     }
     
     

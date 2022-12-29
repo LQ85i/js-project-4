@@ -69,4 +69,13 @@ const todoRemover = (todo, projects) => {
     }
 }
 
-export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos, todoRemover }
+const projectRemover = (project, projects) => {
+    const projectName = project.querySelector(".sidebar-text").innerHTML;
+    for(let i = 0; i < projects.length; i++) {
+        if(projectName == projects[i].name){
+            projects.splice(i,1);
+        }
+    }
+}
+
+export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos, todoRemover, projectRemover }

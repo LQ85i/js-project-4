@@ -52,6 +52,7 @@ body {
 .sidebar-text {
     align-self: center;
     margin-left: 10px;
+    overflow: auto;
 }
 
 .sidebar-icon {
@@ -73,8 +74,9 @@ body {
 }
 
 .sidebar-project {
-    margin: 0 30px 10px 30px;
-    display: flex;
+    margin: 0 5px 10px 30px;
+    display: grid;
+    grid-template-columns: 30px 158px 27px;
     font-size: 17px;
 }
 
@@ -83,12 +85,21 @@ body {
     background-size: 25px;
 }
 
-
 .sidebar-project.selected .icon-project {
     background: url(./icons/arrow_right.svg);
     background-size: 25px;
 }
 
+.sidebar-project-remove {
+    border: none;
+    width: 25px;
+    height: 25px;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar-project-remove:hover{
+    filter: drop-shadow(0 0 3px red) invert(1);
+}
 
 .sidebar-tag {
     margin: 0 30px 30px 30px;
