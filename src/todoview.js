@@ -1,7 +1,7 @@
 import { toggleTodoDescription } from "./toggles";
 import { format } from "date-fns";
 import { currentTab } from "./sidebar";
-import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos, todoRemover } from "./factories";
+import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos, todoRemover, completeTodo } from "./factories";
 
 const buildTodoview = (projects, filter) => {
 
@@ -55,6 +55,9 @@ const buildTodoview = (projects, filter) => {
         const todo_item = document.createElement('div');
 
         todo_item.classList.add("todo-item");
+        if(todo.completed) {
+            todo_item.classList.add("completed");
+        }
 
         todo_item.addEventListener("click",(e)=>{
             if(e.target == e.currentTarget) {
@@ -91,6 +94,11 @@ const buildTodoview = (projects, filter) => {
 
         tCheckbox.classList.add("icon-checkbox");
         tDelete.classList.add("icon-delete");
+
+        tCheckbox.addEventListener("click",(e)=>{
+            completeTodo(todo);
+            updatePage(projects);
+        });
 
         tDelete.addEventListener("click",(e)=>{
             

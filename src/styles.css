@@ -313,6 +313,13 @@ body {
     user-select: text;
 }
 
+.todo-item.completed {
+    border: 2px solid rgba(128, 128, 128, 0);
+    background-color: rgb(29, 54, 47);
+    box-shadow: none;
+    filter: opacity(50%);
+}
+
 .todo-description {
     overflow: hidden;
     visibility: visible;
@@ -380,7 +387,7 @@ body {
     background-size: 25px;
 }
 .icon-checkbox {
-    background: url(./icons/checkbox_yes.svg);
+    background: url(./icons/checkbox_no.svg);
     background-size: 25px;
 }
 .icon-delete {
@@ -388,3 +395,7 @@ body {
     background-size: 25px;
 }
 
+.todo-item.completed .icon-checkbox {
+    background: url(./icons/checkbox_yes.svg);
+    background-size: 25px;
+}

@@ -1,8 +1,8 @@
 import { startOfTomorrow, compareAsc, isToday } from 'date-fns';
 
 
-const todoFactory = (name, description, dueDate, priority, projectName) => {
-    return { name, description, dueDate, priority, projectName};
+const todoFactory = (name, description, dueDate, priority, projectName, completed) => {
+    return { name, description, dueDate, priority, projectName, completed};
 }
 
 const projectFactory = (name) => {
@@ -78,4 +78,13 @@ const projectRemover = (project, projects) => {
     }
 }
 
-export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos, todoRemover, projectRemover }
+const completeTodo = (todo) => {
+    if(todo.completed == true) {
+        todo.completed = false;
+    }
+    else {
+        todo.completed = true;
+    }
+}
+
+export { todoFactory, projectFactory, getTodayTodos, getUpcomingTodos, getHighPriorityTodos, todoRemover, projectRemover, completeTodo }
