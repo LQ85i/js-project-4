@@ -80,7 +80,23 @@ function addEventListeners() {
     document.getElementById("form-add-project").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        formReaderProject(formData, projects);
+        const projectName = formData.get("name");
+        const nameInput = document.querySelector("#form-add-project #name");
+        let nameIsUnique = true;
+        for(let i = 0; i < projects.length; i++){
+            if(projects[i].name == projectName){
+                nameIsUnique = false;
+            }
+        }
+        if(nameIsUnique) {
+            nameInput.setCustomValidity("");
+            formReaderProject(formData, projects);
+        }
+        else {
+            nameInput.setCustomValidity("Project names must be unique.");
+            nameInput.reportValidity();
+        }
+        
     })
 
     sidebar_toggle.addEventListener("click",()=>{

@@ -22,9 +22,8 @@ const formReaderTodo = (formData, projects) => {
 }
 
 const formReaderProject = (formData, projects) => {
-    const project = projectFactory(
-        formData.get("name")
-    );
+    const projectName = formData.get("name");
+    const project = projectFactory(projectName);
     projects.push(project);
     updateSidebarProjects(projects)
 }

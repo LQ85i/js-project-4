@@ -38,6 +38,7 @@ const buildSidebarProjects = (projects) => {
         });
 
         removeButton.addEventListener("click",()=>{
+            document.querySelector("#form-add-project #name").setCustomValidity("");
             projectRemover(project, projects);
             updateSidebarProjects(projects);
         });

@@ -30,7 +30,7 @@
             <div class="sidebar-separator"></div>
             <div class="sidebar-category">Projects</div>
             <form name="form-add-project" id="form-add-project">
-                <input type="text" name="name" id="name" placeholder="add project.." required>
+                <input type="text" name="name" id="name" placeholder="add project.." oninput="setCustomValidity('')" required>
                 <input type="submit" value="+" id="submit">
             </form>
             <div id="sidebar-projects">
