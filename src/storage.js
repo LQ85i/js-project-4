@@ -138,7 +138,6 @@ const removeLocalTodo = (todo) => {
     const todoID = todo.id.toString();
     let todoIDs = localStorage.getItem("todoIDs");
     todoIDs = todoIDs.split(',');
-    console.log("delete " + todoID +" from "+ todoIDs);
     todoIDs.splice(todoIDs.indexOf(todoID),1);
     if(todoIDs.length == 0){
         localStorage.removeItem("todoIDs");
