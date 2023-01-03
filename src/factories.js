@@ -1,12 +1,16 @@
 import { startOfTomorrow, compareAsc, isToday } from 'date-fns';
+import { removeLocalProject, removeLocalTodo } from './storage';
 
 
 const todoFactory = (name, description, dueDate, priority, projectName, completed) => {
-    return { name, description, dueDate, priority, projectName, completed};
+    let id = null;
+    return { name, description, dueDate, priority, projectName, completed, id};
 }
 
 const projectFactory = (name) => {
     let todos = [];
+    let id = null;
+
     const addTodo = (todo) => {
         todos.push(todo);
     }
@@ -21,7 +25,8 @@ const projectFactory = (name) => {
         const todosCopy = todos;
         return todosCopy;
     }   
-    return { name, addTodo, removeTodo, getTodos };
+    let project = { name, addTodo, removeTodo, getTodos, id};
+    return project;
 }
 
 const getTodayTodos = (projects) => {
@@ -64,6 +69,7 @@ const getHighPriorityTodos = (projects) => {
 const todoRemover = (todo, projects) => {
     for(let i = 0; i < projects.length; i++) {
         if(projects[i].name == todo.projectName){
+            removeLocalTodo(todo);
             projects[i].removeTodo(todo);
         }
     }
@@ -73,6 +79,7 @@ const projectRemover = (project, projects) => {
     const projectName = project.querySelector(".sidebar-text").innerHTML;
     for(let i = 0; i < projects.length; i++) {
         if(projectName == projects[i].name){
+            removeLocalProject(projects[i]);
             projects.splice(i,1);
         }
     }

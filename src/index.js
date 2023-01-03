@@ -5,6 +5,7 @@ import { todoFactory, projectFactory } from './factories';
 import { startOfToday, startOfTomorrow, format } from 'date-fns';
 import { buildSidebarProjects, currentTab } from './sidebar';
 import { formReaderTodo, formReaderProject, updateTodoFormProjects } from './formFunctions';
+import { loadProjects } from './storage';
 
 
 const projects = defaultSetup();
@@ -13,48 +14,10 @@ function defaultSetup() {
     const addTodoDate = document.querySelector("#form-add-todo #date");
     addTodoDate.setAttribute("min",format(startOfToday(),'yyyy-MM-dd'));
     
-    let projects = [];
-
-    const project0 = projectFactory("project0");
-    const project1 = projectFactory("project1");
-
-    projects.push(project0);
-    projects.push(project1);
-
-    const todo0 = todoFactory(
-        "default todo",
-        "description here description here description here ",
-        startOfToday(),
-        "Low",
-        "project0"
-    );
-    const todo1 = todoFactory(
-        "tomorrow todo",
-        "description here",
-        startOfTomorrow(),
-        "Medium",
-        "project0"
-    );
-    const todo2 = todoFactory(
-        "tomorrow todo",
-        "description here",
-        startOfTomorrow(),
-        "Medium",
-        "project0"
-    );
-    const todo3 = todoFactory(
-        "tomorrow todo",
-        "description here",
-        startOfTomorrow(),
-        "Medium",
-        "project1"
-    );
-
-    project0.addTodo(todo0);
-    project0.addTodo(todo1);
-    project0.addTodo(todo2);
-    project1.addTodo(todo3);
-
+    let projects = loadProjects();
+    if(projects == -1 || projects == null){
+        projects = [];
+    }
     buildSidebarProjects(projects);
     updateTodoFormProjects(projects);
     currentTab = document.getElementById("sidebar-today");
