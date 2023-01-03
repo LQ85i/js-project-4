@@ -105,7 +105,6 @@ const removeLocalProject = (project) => {
         todoIDs = todoIDs.split(',');
         for (let i = 0; i < todoIDs.length; i++) {
             const todoID = todoIDs[i];
-            console.log("delete " + todoID +" from "+ todoIDs);
             const todo = localStorage.getObj("todo"+todoID);
             if(projectName == todo.projectName){
                 todoIDsToDelete.push(todoID);
