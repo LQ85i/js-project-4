@@ -56,7 +56,9 @@ const buildSidebarProjects = (projects) => {
 }
 
 const setCurrentTab = (tab) => {
+    currentTab.classList.remove("selected");
     currentTab = tab; 
+    currentTab.classList.add("selected");
 }
 
 const getCurrentTab = () => {

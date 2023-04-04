@@ -2,7 +2,7 @@ import './styles.css'
 import { buildTodoview, updatePage } from './todoview';
 import { toggleSidebar } from './toggles';
 import { startOfToday, format } from 'date-fns';
-import { buildSidebarProjects, getCurrentTab, setCurrentTab, updateSidebarTodocount } from './sidebar';
+import { buildSidebarProjects, setCurrentTab } from './sidebar';
 import { formReaderTodo, formReaderProject, updateTodoFormProjects } from './formFunctions';
 import { loadProjects, saveProject, saveTodo } from './storage';
 import { projectFactory, todoFactory } from './factories';
@@ -35,7 +35,6 @@ function defaultSetup() {
     updateTodoFormProjects(projects);
     updatePage(projects);
     setCurrentTab(document.getElementById("sidebar-today"));
-    getCurrentTab().classList.add("selected");
 
     buildTodoview(projects, "Today");
 
@@ -82,7 +81,6 @@ function addEventListeners() {
 
     sidebar_today.addEventListener("click", () => {
         if (!sidebar_today.classList.contains("selected")) {
-            getCurrentTab().classList.remove("selected");
             setCurrentTab(sidebar_today);
             sidebar_today.classList.add("selected");
         }
@@ -90,7 +88,6 @@ function addEventListeners() {
     });
     sidebar_upcoming.addEventListener("click", () => {
         if (!sidebar_upcoming.classList.contains("selected")) {
-            getCurrentTab().classList.remove("selected");
             setCurrentTab(sidebar_upcoming);
             sidebar_upcoming.classList.add("selected");
         }
@@ -98,7 +95,6 @@ function addEventListeners() {
     });
     sidebar_highpriority.addEventListener("click", () => {
         if (!sidebar_highpriority.classList.contains("selected")) {
-            getCurrentTab().classList.remove("selected");
             setCurrentTab(sidebar_highpriority);
             sidebar_highpriority.classList.add("selected");
         }
