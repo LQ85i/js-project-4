@@ -1,6 +1,6 @@
 import { projectFactory, todoFactory } from "./factories";
 import { updatePage } from './todoview';
-import { updateSidebarProjects } from "./sidebar";
+import { updateSidebarProjects, updateSidebarTodocount } from "./sidebar";
 import { saveTodo, saveProject } from './storage';
 
 import parseISO from "date-fns/parseISO";
@@ -28,7 +28,8 @@ const formReaderProject = (formData, projects) => {
     const project = projectFactory(projectName);
     projects.push(project);
     saveProject(project);
-    updateSidebarProjects(projects)
+    updatePage(projects);
+    updateSidebarProjects(projects);
 }
 
 const updateTodoFormProjects = (projects) => {

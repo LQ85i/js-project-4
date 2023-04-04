@@ -1,6 +1,6 @@
 import { updateTodoFormProjects } from "./formFunctions";
-import { buildTodoview } from "./todoview";
-import { projectRemover } from "./factories";
+import { buildTodoview, updatePage } from "./todoview";
+import { getHighPriorityTodos, getTodayTodos, getUpcomingTodos, projectRemover } from "./factories";
 
 let currentTab = document.createElement('div');
 
@@ -41,6 +41,7 @@ const buildSidebarProjects = (projects) => {
             document.querySelector("#form-add-project #name").setCustomValidity("");
             projectRemover(project, projects);
             buildTodoview(projects, "Today");
+            updatePage(projects);
             updateSidebarProjects(projects);
         });
 
@@ -67,4 +68,32 @@ const updateSidebarProjects = (projects) => {
     updateTodoFormProjects(projects);
 }
 
-export { buildSidebarProjects, updateSidebarProjects, setCurrentTab, getCurrentTab};
+const updateSidebarTodocount = (projects) => {
+    const eToday = document.querySelector("#sidebar-today .sidebar-todocount");
+    const eUpcoming = document.querySelector("#sidebar-upcoming .sidebar-todocount");
+    const eHighPriority = document.querySelector("#sidebar-highpriority .sidebar-todocount");
+    
+    const today = getTodayTodos(projects).length;
+    const upcoming = getUpcomingTodos(projects).length;
+    const highPriority = getHighPriorityTodos(projects).length;
+
+    if(today>0){
+        eToday.innerHTML = today;
+    } else {
+        eToday.innerHTML = "";
+    }
+    if(upcoming>0){
+        eUpcoming.innerHTML = upcoming;
+    } else {
+        eUpcoming.innerHTML = "";
+    }
+    if(highPriority>0){
+        eHighPriority.innerHTML = highPriority;
+    } else {
+        eHighPriority.innerHTML = "";
+    }
+   
+    
+}
+
+export { buildSidebarProjects, updateSidebarProjects, updateSidebarTodocount, setCurrentTab, getCurrentTab};

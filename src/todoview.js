@@ -1,6 +1,6 @@
 import { toggleTodoDescription } from "./toggles";
 import { format } from "date-fns";
-import { getCurrentTab } from "./sidebar";
+import { getCurrentTab, updateSidebarTodocount } from "./sidebar";
 import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos, todoRemover, completeTodo } from "./factories";
 
 const buildTodoview = (projects, filter) => {
@@ -123,6 +123,7 @@ const buildTodoview = (projects, filter) => {
 }
 
 const updatePage = (projects) => {
+    updateSidebarTodocount(projects);
     if(getCurrentTab().id == "sidebar-today"){
         buildTodoview(projects, "Today");
     }
