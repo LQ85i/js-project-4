@@ -54,9 +54,17 @@ const buildSidebarProjects = (projects) => {
     
 }
 
+const setCurrentTab = (tab) => {
+    currentTab = tab; 
+}
+
+const getCurrentTab = () => {
+    return currentTab;
+}
+
 const updateSidebarProjects = (projects) => {
     buildSidebarProjects(projects);
     updateTodoFormProjects(projects);
 }
 
-export { buildSidebarProjects, updateSidebarProjects, currentTab };
+export { buildSidebarProjects, updateSidebarProjects, setCurrentTab, getCurrentTab};

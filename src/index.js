@@ -1,9 +1,8 @@
 import './styles.css'
 import { buildTodoview } from './todoview';
 import { toggleSidebar } from './toggles';
-import { todoFactory, projectFactory } from './factories';
-import { startOfToday, startOfTomorrow, format } from 'date-fns';
-import { buildSidebarProjects, currentTab } from './sidebar';
+import { startOfToday, format } from 'date-fns';
+import { buildSidebarProjects, getCurrentTab, setCurrentTab } from './sidebar';
 import { formReaderTodo, formReaderProject, updateTodoFormProjects } from './formFunctions';
 import { loadProjects } from './storage';
 
@@ -20,8 +19,10 @@ function defaultSetup() {
     }
     buildSidebarProjects(projects);
     updateTodoFormProjects(projects);
-    currentTab = document.getElementById("sidebar-today");
-    currentTab.classList.add("selected");
+
+    setCurrentTab(document.getElementById("sidebar-today"));
+    getCurrentTab().classList.add("selected");
+
     buildTodoview(projects, "Today");
 
 
@@ -32,7 +33,7 @@ function addEventListeners() {
     const sidebar_today = document.getElementById("sidebar-today");
     const sidebar_upcoming = document.getElementById("sidebar-upcoming");
     const sidebar_highpriority = document.getElementById("sidebar-highpriority");
-    
+    const validate = validate;
     const sidebar_toggle = document.getElementById("sidebar-toggle");
 
     document.getElementById("form-add-todo").addEventListener("submit", (e) => {
@@ -68,24 +69,24 @@ function addEventListeners() {
     
     sidebar_today.addEventListener("click",()=>{
         if(!sidebar_today.classList.contains("selected")){
-            currentTab.classList.remove("selected");
-            currentTab = sidebar_today;
+            getCurrentTab().classList.remove("selected");
+            setCurrentTab(sidebar_today);
             sidebar_today.classList.add("selected");
         }
         buildTodoview(projects, "Today");
     });
     sidebar_upcoming.addEventListener("click",()=>{
         if(!sidebar_upcoming.classList.contains("selected")){
-            currentTab.classList.remove("selected");
-            currentTab = sidebar_upcoming;
+            getCurrentTab().classList.remove("selected");
+            setCurrentTab(sidebar_upcoming);
             sidebar_upcoming.classList.add("selected");
         }
         buildTodoview(projects, "Upcoming");
     });
     sidebar_highpriority.addEventListener("click",()=>{
         if(!sidebar_highpriority.classList.contains("selected")){
-            currentTab.classList.remove("selected");
-            currentTab = sidebar_highpriority;
+            getCurrentTab().classList.remove("selected");
+            setCurrentTab(sidebar_highpriority);
             sidebar_highpriority.classList.add("selected");
         }
         buildTodoview(projects, "HighPriority");

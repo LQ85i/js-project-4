@@ -1,5 +1,5 @@
 import { parseISO } from "date-fns";
-import { todoFactory, projectFactory } from "./factories";
+import { projectFactory } from "./factories";
 
 const saveTodo = (todo) => {
     let IDcounter = localStorage.getItem("IDcounter");

@@ -1,6 +1,6 @@
 import { toggleTodoDescription } from "./toggles";
 import { format } from "date-fns";
-import { currentTab } from "./sidebar";
+import { getCurrentTab } from "./sidebar";
 import { getHighPriorityTodos, getUpcomingTodos, getTodayTodos, todoRemover, completeTodo } from "./factories";
 
 const buildTodoview = (projects, filter) => {
@@ -123,18 +123,18 @@ const buildTodoview = (projects, filter) => {
 }
 
 const updatePage = (projects) => {
-    if(currentTab.id == "sidebar-today"){
+    if(getCurrentTab().id == "sidebar-today"){
         buildTodoview(projects, "Today");
     }
-    else if(currentTab.id == "sidebar-upcoming"){
+    else if(getCurrentTab().id == "sidebar-upcoming"){
         buildTodoview(projects, "Upcoming");
     }
-    else if(currentTab.id == "sidebar-highpriority"){
+    else if(getCurrentTab().id == "sidebar-highpriority"){
         buildTodoview(projects, "HighPriority");
     }
-    else if(currentTab.id.includes("sidebar-project-")){
+    else if(getCurrentTab().id.includes("sidebar-project-")){
         for(let i = 0; i < projects.length; i++) {
-            if(projects[i].name == currentTab.querySelector(".sidebar-text").innerHTML){
+            if(projects[i].name == getCurrentTab().querySelector(".sidebar-text").innerHTML){
                 buildTodoview([projects[i]], "Project");
                 break;
             }
